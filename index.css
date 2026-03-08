@@ -1,0 +1,212 @@
+/* START: Tailwind v4 – korrekt for @tailwindcss/vite */
+@import "tailwindcss";
+/* SLUTT: Tailwind */
+
+/* START: Global stil */
+:root {
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: #020617;
+  color: #e5e7eb;
+}
+
+a {
+  text-decoration: none;
+}
+/* SLUTT: Global stil */
+
+/* ========================= */
+/* START: Home (BEM)         */
+/* ========================= */
+
+.home {
+  min-height: calc(100vh - 3.5rem);
+  color: #e5e7eb;
+}
+
+/* START: hero container */
+.home__hero {
+  position: relative;
+  height: calc(100vh - 3.5rem);
+  overflow: hidden;
+}
+/* SLUTT: hero container */
+
+/* START: bakgrunn (stadion) */
+.home__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+
+  background-image: url("/images/stadium.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 80%;
+
+  /* Litt boost uten å bli “for mye” */
+  filter: saturate(1.15) contrast(1.08) brightness(1.06);
+}
+/* SLUTT: bakgrunn (stadion) */
+
+/* START: tekst i himmel (bak spotlight) */
+.home__brand {
+  position: absolute;
+  top: 185px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* Større og mer “cinematic” */
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+
+  /* Blender inn i himmelen */
+  color: rgba(226, 232, 240, 0.42);
+
+  /* Mild skygge så den fortsatt kan leses */
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+  /* Ligger bak spotlighten */
+  z-index: -2;
+
+  pointer-events: none;
+}
+/* SLUTT: tekst i himmel */
+
+/* START: spotlight (PNG som overlay) */
+.home__spotlight {
+  position: absolute;
+  inset: 0;
+
+  /* Viktig: spotlight over brand, men under overlay */
+  z-index: -1;
+
+  background-image: url("/images/spotlight.png");
+  background-repeat: no-repeat;
+  background-size: 1150px auto;
+  background-position: 50% 0;
+
+  /* FIX: lavere opacity så det ikke blir mørkt/svart */
+  opacity: 0.28;
+
+  /* Enkel animasjon (pensum) */
+  animation: spotlightMove 8s ease-in-out infinite,
+    spotlightFlicker 3.2s steps(2, end) infinite;
+}
+/* SLUTT: spotlight */
+
+/* START: overlay for kontrast (gjør teksten lesbar) */
+.home__overlay {
+  position: absolute;
+  inset: 0;
+
+  /* Overlay øverst av bakgrunnslagene */
+  z-index: 0;
+
+  /* FIX: lysere overlay */
+  background: radial-gradient(
+      70% 70% at 50% 45%,
+      rgba(2, 6, 23, 0.03),
+      rgba(2, 6, 23, 0.22)
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.06),
+      rgba(2, 6, 23, 0.30)
+    );
+}
+/* SLUTT: overlay */
+
+/* START: tekst på ball */
+.home__content {
+  position: relative;
+  z-index: 2;
+
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  padding: 0 16px;
+}
+
+/* Plasser teksten over ballen i bildet */
+.home__title {
+  width: 365px;
+  text-align: center;
+
+  /* FIX: flytter teksten mer til midten av ballen */
+  transform: translate(0px, -205px);
+
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+}
+
+/* Fargeaksenter */
+.home__title--squad {
+  color: rgba(56, 189, 248, 0.88);
+}
+
+.home__title--stadiums {
+  color: rgba(192, 132, 252, 0.88);
+}
+
+.home__title--finances {
+  color: rgba(52, 211, 153, 0.88);
+}
+/* SLUTT: tekst på ball */
+
+/* START: animasjoner */
+@keyframes spotlightMove {
+  0% {
+    transform: translateX(-1%);
+  }
+  50% {
+    transform: translateX(1%);
+  }
+  100% {
+    transform: translateX(-1%);
+  }
+}
+
+@keyframes spotlightFlicker {
+  0% {
+    opacity: 0.26;
+  }
+  50% {
+    opacity: 0.32;
+  }
+  100% {
+    opacity: 0.26;
+  }
+}
+/* SLUTT: animasjoner */
+
+/* START: universell utforming (reduced motion) */
+@media (prefers-reduced-motion: reduce) {
+  .home__spotlight {
+    animation: none;
+  }
+}
+/* SLUTT: universell utforming */
+
+/* ========================= */
+/* SLUTT: Home (BEM)         */
+/* ========================= */
